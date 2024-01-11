@@ -5,8 +5,8 @@ export const RegisterPage = () => {
   return (
     <AuthLayout>
         
-        <img width="120" height="120" src="https://img.icons8.com/external-xnimrodx-lineal-gradient-xnimrodx/100/external-smart-house-internet-of-things-xnimrodx-lineal-gradient-xnimrodx-2.png" alt="external-smart-house-internet-of-things-xnimrodx-lineal-gradient-xnimrodx-2"/>
-  
+        <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/user-male-circle.png" alt="user-male-circle"/>
+
         <form
         className="form-box"
         >   
