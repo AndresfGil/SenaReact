@@ -1,3 +1,4 @@
+import { Link, Link as RouterLink } from "react-router-dom"
 import { AuthLayout } from "../layout/AuthLayout"
 
 
@@ -74,9 +75,9 @@ export const RegisterPage = () => {
         </form>
 
             <div className="text-box-2">
-                <button
-                className="btn-register"
-                >¿Ya tienes una cuenta?</button>
+                <Link component={RouterLink} to={"/>auth/login"} className="linkText">
+                    ¿Ya tienes una cuenta?
+                </Link>
             </div>
 
     </AuthLayout>

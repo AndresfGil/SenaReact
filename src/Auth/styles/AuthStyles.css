@@ -54,10 +54,8 @@
     border: none;
 }
 
-.btn-register {
-    background-color: transparent;
-    border: none;
-    text-decoration:underline ;
+.linkText {
+    color: black;
 }
 
 .btn-submit-login {
