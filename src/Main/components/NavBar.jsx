@@ -4,11 +4,11 @@ import '../styles/NavBar.css'
 export const NavBar = () => {
   return (
     <div className="navBar-container">
-        <div class="hamburger">
-          <input class="checkbox" type="checkbox" />
+        <div className="hamburger">
+          <input className="checkbox" type="checkbox" />
           <svg fill="none" viewBox="0 0 50 50" height="50" width="50">
             <path
-              class="lineTop line"
+              className="lineTop line"
               stroke-linecap="round"
               stroke-width="4"
               stroke="black"
@@ -19,18 +19,18 @@ export const NavBar = () => {
               stroke-width="4"
               stroke="black"
               d="M6 24H43"
-              class="lineMid line"
+              className="lineMid line"
             ></path>
             <path
               stroke-linecap="round"
               stroke-width="4"
               stroke="black"
               d="M6 37H43"
-              class="lineBottom line"
+              className="lineBottom line"
             ></path>
           </svg>
         </div>
-        
+
         <div className="box-nav1">
             <img width="80" height="80" src="https://img.icons8.com/external-xnimrodx-lineal-gradient-xnimrodx/100/external-smart-house-internet-of-things-xnimrodx-lineal-gradient-xnimrodx-2.png" alt="external-smart-house-internet-of-things-xnimrodx-lineal-gradient-xnimrodx-2"/>
         </div>

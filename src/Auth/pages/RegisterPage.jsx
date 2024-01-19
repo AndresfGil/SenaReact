@@ -1,8 +1,42 @@
 import { Link, Link as RouterLink } from "react-router-dom"
 import { AuthLayout } from "../layout/AuthLayout"
+import { useForm } from "../../Hooks/useForm";
+
+
+const registerFormFields = {
+    registerName: '',
+    registerPhone: '',
+    registerAddress: '',
+    registerEmail: '',
+    registerPassword: '',
+};
+
 
 
 export const RegisterPage = () => {
+
+
+    const { registerName, registerPhone, registerAddress, registerEmail, registerPassword, onInputChange:onRegisterInputChange } = useForm( registerFormFields );
+
+    const registerSubmit = ( event ) => {
+        event.preventDefault();
+        console.log({
+            registerName, 
+            registerPhone, 
+            registerAddress, 
+            registerEmail, 
+            registerPassword
+        });
+    }
+
+
+
+
+
+
+
+
+
   return (
     <AuthLayout>
         
@@ -10,15 +44,16 @@ export const RegisterPage = () => {
 
         <form
         className="form-box"
+        onSubmit={registerSubmit}
         >   
             <div className="mb-3">
                 <input
                 type="text"
                 className="form-control"
                 placeholder="Nombre Completo"
-                name='userName'
-                // value={ loginEmail }
-                // onChange={ onLoginInputChange }
+                name='registerName'
+                value={ registerName }
+                onChange={ onRegisterInputChange }
                 />
             </div>
 
@@ -27,9 +62,9 @@ export const RegisterPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Numero de contacto"
-                name='userNumberPhone'
-                // value={ loginEmail }
-                // onChange={ onLoginInputChange }
+                name='registerPhone'
+                value={ registerPhone }
+                onChange={ onRegisterInputChange }
                 />
             </div>
 
@@ -38,9 +73,9 @@ export const RegisterPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Direccion"
-                name='userAddress'
-                // value={ loginEmail }
-                // onChange={ onLoginInputChange }
+                name='registerAddress'
+                value={ registerAddress }
+                onChange={ onRegisterInputChange }
                 />
             </div>
 
@@ -49,9 +84,9 @@ export const RegisterPage = () => {
                 type="email"
                 className="form-control"
                 placeholder="Correo"
-                name='loginEmail'
-                // value={ loginEmail }
-                // onChange={ onLoginInputChange }
+                name='registerEmail'
+                value={ registerEmail }
+                onChange={ onRegisterInputChange }
                 />
             </div>
             
@@ -60,9 +95,9 @@ export const RegisterPage = () => {
                 type="password" 
                 className="form-control"
                 placeholder="Contraseña"
-                name='loginPassword'
-                // value={ loginEmail }
-                // onChange={ onLoginInputChange }
+                name='registerPassword'
+                value={ registerPassword }
+                onChange={ onRegisterInputChange }
                 />
             </div>
 
