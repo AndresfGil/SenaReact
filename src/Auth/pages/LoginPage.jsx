@@ -1,30 +1,49 @@
-import { Link, Link as RouterLink } from "react-router-dom"
-import { AuthLayout } from "../layout/AuthLayout"
-import { useForm } from "../../Hooks/useForm"
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Link as RouterLink } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useForm } from "../../Hooks/useForm";
+import { startLoadingUsers, startLoginWithEmailPassword } from '../../Store/auth';
+import { startLoadingItems } from '../../Store/items/thunks';
+import { AuthLayout } from "../layout/AuthLayout";
+
 
 
 const loginFormFields = {
-    loginEmail: '',
-    loginPassword: '',
+    email: '',
+    password: '',
 };
 
 
 export const LoginPage = () => {
 
-    const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm( loginFormFields );
+  const { status } = useSelector((state) => state.auth)
+    
+    const dispatch = useDispatch();
 
-    const loginSubmit = ( event ) => {
+    const { email, password, onInputChange:onLoginInputChange } = useForm( loginFormFields );
+
+    const loginSubmit = async ( event ) => {
         event.preventDefault();
-        console.log({
-            loginEmail,
-            loginPassword
-        });
+        
+
+        try {
+          dispatch(startLoadingItems())
+          dispatch(startLoadingUsers())
+          const result = await dispatch(
+            startLoginWithEmailPassword({ email, password })
+          );
+    
+          if (!result.ok) {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Correo o contraseña incorrecta",
+            });
+          }
+        } catch (error) {
+          console.log('Error al ingresar el ususario');
+        }
     }
-
-
-
-
-
 
   return (
     <AuthLayout>
@@ -40,8 +59,8 @@ export const LoginPage = () => {
                 type="email"
                 className="form-control"
                 placeholder="Correo"
-                name='loginEmail'
-                value={ loginEmail }
+                name='email'
+                value={ email }
                 onChange={ onLoginInputChange }
                 />
             </div>
@@ -51,15 +70,16 @@ export const LoginPage = () => {
                 type="password" 
                 className="form-control"
                 placeholder="Contraseña"
-                name='loginPassword'
-                value={ loginPassword }
+                name='password'
+                value={ password }
                 onChange={ onLoginInputChange }
                 />
             </div>
 
             <button
+            type="submit"
             className="btn-submit-login"
-            type="submit">
+            >
                 Iniciar Sesion
             </button>
             

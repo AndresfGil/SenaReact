@@ -1,6 +1,9 @@
-import { Link, Link as RouterLink } from "react-router-dom"
-import { AuthLayout } from "../layout/AuthLayout"
+import { useDispatch } from "react-redux";
+import { Link, Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "../../Hooks/useForm";
+import { startCreatingUserWithEmailPassword } from '../../Store/auth';
+import { AuthLayout } from "../layout/AuthLayout";
+
 
 
 const registerFormFields = {
@@ -9,32 +12,32 @@ const registerFormFields = {
     registerAddress: '',
     registerEmail: '',
     registerPassword: '',
+    rol: ''
 };
-
 
 
 export const RegisterPage = () => {
 
+    const navigate = useNavigate()
+  
+    const dispatch = useDispatch()
+  
 
-    const { registerName, registerPhone, registerAddress, registerEmail, registerPassword, onInputChange:onRegisterInputChange } = useForm( registerFormFields );
+    const { formState, name, phone, address, email, password, onInputChange:onRegisterInputChange } = useForm( registerFormFields );
 
-    const registerSubmit = ( event ) => {
-        event.preventDefault();
-        console.log({
-            registerName, 
-            registerPhone, 
-            registerAddress, 
-            registerEmail, 
-            registerPassword
-        });
-    }
+    const registerSubmit = async ( event ) => {
+      event.preventDefault();
 
-
-
-
-
-
-
+      try {
+        // Dispatch para crear el usuario
+        await dispatch(startCreatingUserWithEmailPassword(formState));
+    
+        navigate("/login")
+    } catch (error) {
+        console.error("Error al registrar usuario:", error);
+        // Aquí podrías mostrar un mensaje de error al usuario o tomar otras acciones según sea necesario
+      }
+      }
 
 
   return (
@@ -51,8 +54,8 @@ export const RegisterPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Nombre Completo"
-                name='registerName'
-                value={ registerName }
+                name='name'
+                value={ name }
                 onChange={ onRegisterInputChange }
                 />
             </div>
@@ -62,8 +65,8 @@ export const RegisterPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Numero de contacto"
-                name='registerPhone'
-                value={ registerPhone }
+                name='phone'
+                value={ phone }
                 onChange={ onRegisterInputChange }
                 />
             </div>
@@ -73,8 +76,8 @@ export const RegisterPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Direccion"
-                name='registerAddress'
-                value={ registerAddress }
+                name='address'
+                value={ address }
                 onChange={ onRegisterInputChange }
                 />
             </div>
@@ -84,8 +87,8 @@ export const RegisterPage = () => {
                 type="email"
                 className="form-control"
                 placeholder="Correo"
-                name='registerEmail'
-                value={ registerEmail }
+                name='email'
+                value={ email }
                 onChange={ onRegisterInputChange }
                 />
             </div>
@@ -95,8 +98,8 @@ export const RegisterPage = () => {
                 type="password" 
                 className="form-control"
                 placeholder="Contraseña"
-                name='registerPassword'
-                value={ registerPassword }
+                name='password'
+                value={ password }
                 onChange={ onRegisterInputChange }
                 />
             </div>
@@ -104,6 +107,7 @@ export const RegisterPage = () => {
             <button
             className="btn-submit-login"
             type="submit">
+              
                 Registrarse
             </button>
             
